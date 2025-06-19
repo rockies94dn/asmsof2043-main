@@ -18,7 +18,7 @@ public interface PolyCafeController {
     /**
      * Hiển thị cửa sổ chào 
      * Hiển thị cửa sổ đăng nhập 
-     * Hiển thị thông tin user đăng nhập
+     * Hiển thị thông tin user đăng nhập.
      * Disable/Enable các thành phần tùy thuộc vào vai trò đăng nhập
      */
     void init();
