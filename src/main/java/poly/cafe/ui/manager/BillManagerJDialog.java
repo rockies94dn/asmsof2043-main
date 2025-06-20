@@ -130,7 +130,7 @@ public class BillManagerJDialog extends javax.swing.JDialog implements BillContr
 
             },
             new String [] {
-                "ID", "Bill ID", "Checkin", "Checkout", "Status", "Username", "Selected"
+                "Bill ID", "Card ID", "Checkin", "Checkout", "Status", "Username", "Selected"
             }
         ) {
             Class[] types = new Class [] {
@@ -154,6 +154,11 @@ public class BillManagerJDialog extends javax.swing.JDialog implements BillContr
             }
         });
         jScrollPane2.setViewportView(tblBills);
+        if (tblBills.getColumnModel().getColumnCount() > 0) {
+            tblBills.getColumnModel().getColumn(1).setPreferredWidth(70);
+            tblBills.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tblBills.getColumnModel().getColumn(3).setPreferredWidth(100);
+        }
 
         btnCheckAll.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Accept_1.png"))); // NOI18N
         btnCheckAll.setText("Select All");

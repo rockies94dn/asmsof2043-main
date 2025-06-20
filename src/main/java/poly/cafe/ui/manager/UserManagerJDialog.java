@@ -133,6 +133,10 @@ public class UserManagerJDialog extends javax.swing.JDialog implements UserContr
             }
         });
         jScrollPane1.setViewportView(tblUser);
+        if (tblUser.getColumnModel().getColumnCount() > 0) {
+            tblUser.getColumnModel().getColumn(2).setPreferredWidth(150);
+            tblUser.getColumnModel().getColumn(6).setPreferredWidth(50);
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

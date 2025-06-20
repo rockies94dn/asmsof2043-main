@@ -250,6 +250,7 @@ public class BillJDialog extends javax.swing.JDialog implements BillController {
     private void btnCheckoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckoutActionPerformed
         // TODO add your handling code here:
         this.checkout();
+        this.setFormForPrint();
     }//GEN-LAST:event_btnCheckoutActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
@@ -492,7 +493,7 @@ public class BillJDialog extends javax.swing.JDialog implements BillController {
 
     @Override
     public void checkout() {
-        if (XDialog.confirm("Do you want to pay this bill?")) {
+        if (XDialog.confirm("Do you want to checkout and print bill?")) {
             bill.setStatus(Bill.Status.Completed.ordinal());
             bill.setCheckout(new Date());
             billDao.update(bill);
@@ -551,6 +552,29 @@ public class BillJDialog extends javax.swing.JDialog implements BillController {
         });
 
     } // hiển thị chi tiết bill
+
+    public void setFormForPrint() {
+        billDetails = billDetailDao.findByBillId(bill.getId());
+        BillForPrintJDialog billPrint = new BillForPrintJDialog(new JFrame(), true);
+        StringBuilder billDetail = new StringBuilder();
+        double originalPrice = 0;
+        double totalPrice = 0;
+        billPrint.getLblBillID().setText(bill.getId().toString());
+        billPrint.getLblCheckout().setText(XDate.formatFull(bill.getCheckout()));
+        for (BillDetail b : billDetails) {
+            Double amt = b.getQuantity() * b.getUnitPrice() * ((100 - b.getDiscount()) / 100);
+            billDetail.append("-- Drink name: " + b.getDrinkName() + "\n");
+            billDetail.append("Quantity: " + b.getQuantity() + "\n");
+            billDetail.append("Price: " + String.format("$%.2f", b.getUnitPrice() * b.getQuantity()) + "\n");
+            originalPrice += b.getQuantity() * b.getUnitPrice();
+            totalPrice += amt;
+        }
+        billPrint.getLblOriginalPrice().setText(String.format("$%.2f", originalPrice));
+        billPrint.getLblDiscountAmount().setText(String.format("$%.2f", totalPrice - originalPrice));
+        billPrint.getLblTotalPrice().setText(String.format("$%.2f", totalPrice));
+        billPrint.getTxtBillDetails().setText(billDetail.toString());
+        billPrint.setVisible(true);
+    }
 
     @Override
     public void moveNext() {

@@ -151,6 +151,11 @@ public class DrinkManagerJDialog extends javax.swing.JDialog implements DrinkCon
             }
         });
         jScrollPane2.setViewportView(tblDrinks);
+        if (tblDrinks.getColumnModel().getColumnCount() > 0) {
+            tblDrinks.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tblDrinks.getColumnModel().getColumn(1).setPreferredWidth(150);
+            tblDrinks.getColumnModel().getColumn(5).setPreferredWidth(50);
+        }
 
         btnCheckAll.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Accept_1.png"))); // NOI18N
         btnCheckAll.setText("Select All");
@@ -748,7 +753,7 @@ public class DrinkManagerJDialog extends javax.swing.JDialog implements DrinkCon
                 item.getId(),
                 item.getName(),
                 item.getUnitPrice(),
-                item.getDiscount(),
+                String.format("%.0f%%", item.getDiscount()),
                 item.isAvailable() ? "Available" : "Not available",
                 false});
         });
