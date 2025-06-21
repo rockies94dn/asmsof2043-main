@@ -22,6 +22,7 @@ public class BillForPrintJDialog extends javax.swing.JDialog {
    public BillForPrintJDialog(JFrame frame, boolean modal) {
         super(frame, modal);
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     public JLabel getLblCheckout() {
